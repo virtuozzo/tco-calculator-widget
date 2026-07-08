@@ -69,10 +69,15 @@ $link-color: #254d90;
   }
 
   .tco-form-half {
+    margin-bottom: 11px;
+    &:last-child {
+      margin-bottom: 0;
+    }
     @media (min-width: 768px) {
       flex: 0 0 50%;
       width: 50%;
       padding: 0 8px;
+      margin-bottom: 0;
     }
   }
 
@@ -134,7 +139,7 @@ $link-color: #254d90;
 
   .tco-calc-banner {
     margin-top: 60px;
-    background: center/cover url('https://www.virtuozzo.com/wp-content/themes/virtuozzo/assets/img/components/vhi-calculator/frame-bg.svg');
+    background: center/cover url('../img/frame-bg.svg');
     padding: 18px 30px;
     display: flex;
     gap: 45px;

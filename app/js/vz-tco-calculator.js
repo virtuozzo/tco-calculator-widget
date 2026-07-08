@@ -564,7 +564,7 @@ Vz.Widgets.TCO = function (config) {
                         $wrapper.find('input[type=checkbox], input[type=radio]').prop('checked', false);
 
                         $('html, body').animate({
-                            scrollTop: $('.tco-calculator').offset().top - 150
+                            scrollTop: $('.vz-tco-calculator').offset().top - 150
                         }, 500);
 
                         setTimeout(function () {
