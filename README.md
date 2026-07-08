@@ -31,7 +31,7 @@ Widget addition to your site can be accomplished in a few simple steps:
 
 The default ready-to-work TCO calculator widget looks as follows:
 
-![Virtuozzo TCO Calculator screenshot](../tco-calculator/screenshot.png)
+![Virtuozzo TCO Calculator screenshot](screenshot.png)
 
 ### Widget Parameters
 
