@@ -476,20 +476,24 @@ Vz.Widgets.TCO = function (config) {
                     $(self.element).removeClass('loading');
                     var $response = JSON.parse(response);
                     if ($response.code === 0) {
-                        $(self.element).addClass('success');
-                        $(self.element).find('.tco-calc-cta').removeClass('active');
-                        var $wrapper = $(self.element).find('.tco-form-wrapper');
-                        $wrapper.find('input:not([type=submit],[type=hidden]), textarea').val('');
-                        $wrapper.find('select').prop('selectedIndex', 0);
-                        $wrapper.find('input[type=checkbox], input[type=radio]').prop('checked', false);
+                        if ($response.redirectTo) {
+                            window.location.href = $response.redirectTo;
+                        } else {
+                            $(self.element).addClass('success');
+                            $(self.element).find('.tco-calc-cta').removeClass('active');
+                            var $wrapper = $(self.element).find('.tco-form-wrapper');
+                            $wrapper.find('input:not([type=submit],[type=hidden]), textarea').val('');
+                            $wrapper.find('select').prop('selectedIndex', 0);
+                            $wrapper.find('input[type=checkbox], input[type=radio]').prop('checked', false);
 
-                        $('html, body').animate({
-                            scrollTop: $('.vz-tco-calculator').offset().top - 150
-                        }, 500);
+                            $('html, body').animate({
+                                scrollTop: $('.vz-tco-calculator').offset().top - 150
+                            }, 500);
 
-                        setTimeout(function () {
-                            $(self.element).removeClass('success');
-                        }, 3000);
+                            setTimeout(function () {
+                                $(self.element).removeClass('success');
+                            }, 3000);
+                        }
                     } else {
                         $(self.element).find('[name=email]').focus();
                         Vz.Widgets.Modal.show($(self.element).find('[name=email]'), {
