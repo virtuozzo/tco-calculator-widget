@@ -33,6 +33,26 @@ The default ready-to-work TCO calculator widget looks as follows:
 
 ![Virtuozzo TCO Calculator screenshot](screenshot.png)
 
+### Customizable Widget Parameters
+
+The widget is provided with multiple out-of-box arguments that allow you to customize its behavior and default values up to your needs:
+
+Parameter | Description | Default
+--- | --- | ---
+`data-base-url` | Base URL used to load the EJS template (`partial/widget.ejs`). Should point to the root of the `vz-tco-calculator` folder with a trailing slash. | Current host root
+`data-button-link` | URL that the primary CTA button links to. | `https://www.virtuozzo.com/tco-calculator/`
+`data-button-text` | Label text displayed on the primary CTA button. | `TALK TO AN EXPERT`
+
+Example with all parameters:
+
+```html
+<div class="vz-tco-calculator"
+    data-base-url="https://example.com/"
+    data-button-link="https://virtuozzo.com/contact/"
+    data-button-text="Talk to Sales"
+></div>
+```
+
 ### Pricing Data
 
 The widget uses a separate pricing file (`pricings.min.js`) hosted on the Virtuozzo website. This allows pricing data to be updated centrally without requiring any changes to the widget itself.
@@ -62,46 +82,6 @@ You can supply your own pricing data instead of the Virtuozzo defaults. The widg
 ```
 
 The widget will use your prices and skip loading the default file entirely.
-
-### Widget Parameters
-
-The widget supports the following `data-*` attributes on the root element:
-
-Parameter | Description | Default
---- | --- | ---
-`data-base-url` | Base URL used to load the EJS template (`partial/widget.ejs`). Should point to the root of the `vz-tco-calculator` folder with a trailing slash. | Current host root
-`data-button-link` | URL that the primary CTA button links to. | `https://www.virtuozzo.com/tco-calculator/`
-`data-button-text` | Label text displayed on the primary CTA button. | `TALK TO AN EXPERT`
-
-Example with all parameters:
-
-```html
-<div class="vz-tco-calculator"
-    data-base-url="https://example.com/"
-    data-button-link="https://virtuozzo.com/contact/"
-    data-button-text="Talk to Sales"
-></div>
-```
-
-### Calculator Scenarios
-
-The widget provides four preset infrastructure scenarios and a fully configurable custom mode:
-
-Scenario | Nodes | CPUs | Description
---- | --- | --- | ---
-**Edge Deployment** | 3 | 144 | Lightweight edge footprint, hot storage only
-**HCI Baseline** | 5 | 240 | Hyper-converged baseline with hot and cold storage
-**SaaS-optimized** | 40 | 1,920 | High-density compute for SaaS workloads
-**Storage-optimized** | 15 | 480 | Heavy cold storage with dedicated storage nodes
-**Custom setup** | — | — | User-defined compute and storage nodes, EC schemes, and per-node capacities
-
-### Competitor Comparison
-
-For each scenario, the widget compares Virtuozzo against either **VMware** or **AWS**. The competitor pricing mode can be set to one of three options:
-
-- **Estimated VMware** — uses precalculated VMware VCF license and infrastructure costs
-- **Estimated AWS** — uses precalculated AWS EC2 + EBS + S3 Glacier costs
-- **Custom price** — allows entering a per-node annual cost manually (and a per-TB cold storage cost for HCI + AWS)
 
 ### Customize Widget Layout
 
