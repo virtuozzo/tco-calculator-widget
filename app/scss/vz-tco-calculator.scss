@@ -783,7 +783,7 @@ $link-color: #254d90;
     &.tco-calc-results {
       background: linear-gradient(60deg, #254D90 13.24%, #86A2ED 110.82%);
       padding: 20px 46px 15px;
-      color: #fff;
+      //color: #fff;
 
       @media (max-width: 575.98px) {
         padding: 20px 15px;
@@ -792,7 +792,7 @@ $link-color: #254d90;
       h2 {
         font-size: 28px;
         margin-bottom: 20px;
-
+        color: #fff;
         @media (max-width: 575.98px) {
           font-size: 22px;
         }
@@ -906,7 +906,7 @@ $link-color: #254d90;
 
         p {
           margin: 0;
-
+          color: #fff;
           span {
             &:first-child {
               min-width: 130px;
@@ -932,12 +932,14 @@ $link-color: #254d90;
         p {
           font-weight: 500;
           margin: 12px 0 11px;
+          color: #fff;
         }
 
         ul {
           font-weight: 400;
           list-style: none;
           font-size: 16px;
+          color: #fff;
           @media (max-width: 575.98px) {
             margin-left: 0;
           }

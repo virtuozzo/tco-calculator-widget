@@ -10,7 +10,7 @@ Widget addition to your site can be accomplished in a few simple steps:
     git clone https://github.com/virtuozzo/tco-calculator-widget.git
     ```
 
-    `Tip: If you want to customize the widget appearance, refer to the linked section and adjust files within the directory to your needs.`
+   `Tip: If you want to customize the widget appearance, refer to the linked section and adjust files within the directory to your needs.`
 
 2. Add the `vz-tco-calculator` folder to your site's root folder and insert the following lines between the `<head>` and `</body>` tags of the required page:
 
@@ -18,13 +18,10 @@ Widget addition to your site can be accomplished in a few simple steps:
     <link rel="stylesheet" href="{siteUrl}/vz-tco-calculator/css/vz-tco-calculator.min.css">
 
     <script src="{siteUrl}/vz-tco-calculator/js/plugins/jquery-3.7.1.min.js"></script>
-    <script src="https://www.virtuozzo.com/wp-content/themes/virtuozzo/widgets/vz-tco-calculator/pricings.min.js"></script>
     <script src="{siteUrl}/vz-tco-calculator/js/vhc-signup-widget.min.js"></script>
     ```
 
-    Don't forget to correctly substitute your ***{siteUrl}*** placeholder. If jQuery is already loaded on the page, omit the jQuery `<script>` tag.
-
-    `Note: pricings.min.js is optional — the widget loads it automatically if not present. However, adding it explicitly improves performance and ensures it is cached independently by the browser.`
+   Don't forget to correctly substitute your ***{siteUrl}*** placeholder. If jQuery is already loaded on the page, omit the jQuery `<script>` tag.
 
 3. Insert the following block at the position where the widget should be displayed:
 
@@ -35,6 +32,36 @@ Widget addition to your site can be accomplished in a few simple steps:
 The default ready-to-work TCO calculator widget looks as follows:
 
 ![Virtuozzo TCO Calculator screenshot](screenshot.png)
+
+### Pricing Data
+
+The widget uses a separate pricing file (`pricings.min.js`) hosted on the Virtuozzo website. This allows pricing data to be updated centrally without requiring any changes to the widget itself.
+
+By default, the widget loads this file automatically by injecting a `<script>` tag into `<head>` at runtime. No additional setup is required.
+
+However, for better performance it is recommended to include it explicitly before the widget script:
+
+```html
+<script src="https://www.virtuozzo.com/wp-content/themes/virtuozzo/widgets/vz-tco-calculator/pricings.min.js"></script>
+<script src="{siteUrl}/vz-tco-calculator/js/vhc-signup-widget.min.js"></script>
+```
+
+When loaded this way, the widget detects the file is already available and skips the dynamic injection entirely.
+
+#### Custom Pricing Override
+
+You can supply your own pricing data instead of the Virtuozzo defaults. The widget checks whether a `TCOPricings` global object is already defined before loading the default file — so any script that defines `TCOPricings` before the widget script will take precedence.
+
+1. Use the default `pricings.min.js` as a reference for the data structure.
+2. Create your own file (e.g. `my-pricings.js`) with the same structure and your custom values.
+3. Include it before the widget script:
+
+```html
+<script src="{siteUrl}/my-pricings.js"></script>
+<script src="{siteUrl}/vz-tco-calculator/js/vhc-signup-widget.min.js"></script>
+```
+
+The widget will use your prices and skip loading the default file entirely.
 
 ### Widget Parameters
 
@@ -107,10 +134,10 @@ In order to customize the project, you will need [Node.js](https://nodejs.org/) 
     gulp default
     ```
 
-    The watcher tracks the following source files:
-    - `app/scss/vz-tco-calculator.scss` — styles
-    - `app/js/vz-tco-calculator.js` — widget logic
-    - `app/partial/widget.ejs` — HTML template
+   The watcher tracks the following source files:
+   - `app/scss/vz-tco-calculator.scss` — styles
+   - `app/js/vz-tco-calculator.js` — widget logic
+   - `app/partial/widget.ejs` — HTML template
 
 5. You can change styles in `app/scss/vz-tco-calculator.scss`. To build a production distribution without the watcher, run:
 
@@ -118,12 +145,12 @@ In order to customize the project, you will need [Node.js](https://nodejs.org/) 
     gulp sass && gulp js && gulp copy-resources
     ```
 
-    This will produce the following files in the `vz-tco-calculator/` folder:
+   This will produce the following files in the `vz-tco-calculator/` folder:
 
-    - `css/vz-tco-calculator.min.css` — minified CSS
-    - `js/vhc-signup-widget.min.js` — minified JavaScript (includes EJS, tooltip, and popover plugins)
-    - `partial/widget.ejs` — HTML template
-    - `js/plugins/` — bundled third-party plugins
-    - `img/` — static assets
+   - `css/vz-tco-calculator.min.css` — minified CSS
+   - `js/vhc-signup-widget.min.js` — minified JavaScript (includes EJS, tooltip, and popover plugins)
+   - `partial/widget.ejs` — HTML template
+   - `js/plugins/` — bundled third-party plugins
+   - `img/` — static assets
 
 Use these files when integrating the widget into your website.
