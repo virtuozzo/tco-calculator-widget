@@ -23,7 +23,7 @@ gulp.task('copy-resources', function() {
     return merge([
         gulp.src(['./app/img/*.*', './app/img/**/*.*']).pipe(gulp.dest('./vz-tco-calculator/img')),
         gulp.src('./app/partial/*.ejs').pipe(gulp.dest('./vz-tco-calculator/partial')),
-        gulp.src('./app/js/plugins/*.js').pipe(gulp.dest('./vz-tco-calculator/js/plugins'))
+        // gulp.src('./app/js/plugins/*.js').pipe(gulp.dest('./vz-tco-calculator/js/plugins'))
     ]);
 });
 

@@ -18,10 +18,13 @@ Widget addition to your site can be accomplished in a few simple steps:
     <link rel="stylesheet" href="{siteUrl}/vz-tco-calculator/css/vz-tco-calculator.min.css">
 
     <script src="{siteUrl}/vz-tco-calculator/js/plugins/jquery-3.7.1.min.js"></script>
+    <script src="https://www.virtuozzo.com/wp-content/themes/virtuozzo/widgets/vz-tco-calculator/pricings.min.js"></script>
     <script src="{siteUrl}/vz-tco-calculator/js/vhc-signup-widget.min.js"></script>
     ```
 
     Don't forget to correctly substitute your ***{siteUrl}*** placeholder. If jQuery is already loaded on the page, omit the jQuery `<script>` tag.
+
+    `Note: pricings.min.js is optional — the widget loads it automatically if not present. However, adding it explicitly improves performance and ensures it is cached independently by the browser.`
 
 3. Insert the following block at the position where the widget should be displayed:
 

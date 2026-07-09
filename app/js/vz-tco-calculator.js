@@ -68,90 +68,10 @@ Vz.Widgets.TCO = function (config) {
     self.sButtonLink = self.element.getAttribute('data-button-link') || 'https://www.virtuozzo.com/tco-calculator/';
     self.sButtonText = self.element.getAttribute('data-button-text') || 'TALK TO AN EXPERT';
 
-    self.customCfg = {
-        amortization: 1,
-        socketsPerServer: 2,
-        powerKw: 0.4,
-        pue: 1.45,
-        electricityRate: 0.12,
-        rackFeePerServer: 80,
-        rackAnnualCost: 27750,
-        serversPerRack: 48,
-        internetMbps: 400,
-        internetRate: 0.5,
-        fteCost: 140000,
-        vmwCoreRate: 29.1667,
-        vmwMinCores: 72,
-        vmwStoragePerCore: 1,
-        awsOdRate: 2.4192,
-        awsReservedDiscount: 0.5473,
-        awsVcpuPerCore: 2,
-        awsVcpuPerVm: 48,
-        awsEbsRate: 0.08,
-        awsGlacierRate: 0.004,
-        awsGlacierRead: 0.03,
-        awsReadRate: 0.1,
-        awsEgressPerVmGb: 3240,
-        awsEgressColdPct: 0.1,
-        awsMinSupport: 60000
-    };
-
-    self.vzModel = {
-        edge: {
-            pricing: { hardware: 27000, colo: 7687, people: 35000, license: 16674 },
-            hot: 27, compute: 3, storage: 0, cpu: 144
-        },
-        hci: {
-            pricing: { hardware: 196423, colo: 11212, people: 35000, license: 36288 },
-            hot: 138, cold: 518, compute: 5, storage: 0, cpu: 240
-        },
-        saas: {
-            pricing: { hardware: 366667, colo: 74096, people: 96600, license: 120103 },
-            hot: 276, compute: 40, storage: 0, cpu: 1920
-        },
-        storage: {
-            pricing: { hardware: 234243, colo: 58836, people: 63000, license: 126282 },
-            hot: 17, cold: 10080, compute: 5, storage: 10, cpu: 480
-        },
-    };
-
-    self.vmwareModel = {
-        edge: {
-            pricing: { hardware: 27000, colo: 7687, people: 70000, license: 75600 },
-            hot: 21
-        },
-        hci: {
-            pricing: { hardware: 196423, colo: 11212, people: 70000, license: 126000 },
-            hot: 107
-        },
-        saas: {
-            pricing: { hardware: 366667, colo: 74096, people: 161000, license: 1008000 },
-            hot: 215
-        },
-        storage: {
-            pricing: { hardware: 234243, colo: 58836, people: 154000, license: 226000 },
-            hot: 13, cold: 7840
-        },
-    };
-
-    self.awsModel = {
-        edge: {
-            pricing: { compute: 57562, hot: 24140, cold: 0, egrees: 20443, cloud: 42000, support: 60000 },
-            hot: 27
-        },
-        hci: {
-            pricing: { compute: 95937, hot: 123596, cold: 40555, egrees: 77601, cloud: 42000, support: 60000 },
-            hot: 138, cold: 518
-        },
-        saas: {
-            pricing: { compute: 767496, hot: 247192, cold: 0, egrees: 202214, cloud: 112000, support: 121690 },
-            hot: 276,
-        },
-        storage: {
-            pricing: { compute: 191874, hot: 15449, cold: 788567, egrees: 648837, cloud: 56000, support: 164473 },
-            hot: 17, cold: 10080
-        }
-    };
+    self.customCfg   = TCOPricings.customCfg;
+    self.vzModel     = TCOPricings.vzModel;
+    self.vmwareModel = TCOPricings.vmwareModel;
+    self.awsModel    = TCOPricings.awsModel;
 
     self.signupErrors = {
         UNKNOWN: "Something went wrong. We suspect this was caused by network issues, so please try again in a few minutes. If your second attempt fails, please, email us at <a href='mailto:support.portal.issues@virtuozzo.com'>support.portal.issues@virtuozzo.com</a> to get the assistance with account creation.",
@@ -878,15 +798,39 @@ Vz.Widgets.TCO = function (config) {
     }
 };
 
-jQuery(document).ready(function ($) {
-    var $TCO = $('.vz-tco-calculator'),
-        $oTCOwidgets = [];
+(function () {
+    function initWidgets() {
+        jQuery(document).ready(function ($) {
+            var $TCO = $('.vz-tco-calculator');
+            if (!$TCO.length) return;
 
-    if ($TCO.length > 0) {
-        $.each($TCO, function (index) {
-            this.classList.add('loading');
-            var oAtts = { oElement: this };
-            $oTCOwidgets[index] = new Vz.Widgets.TCO(oAtts);
+            var $oTCOwidgets = [];
+            $TCO.each(function (index) {
+                this.classList.add('loading');
+                $oTCOwidgets[index] = new Vz.Widgets.TCO({ oElement: this });
+            });
         });
     }
-});
+
+    if (typeof TCOPricings !== 'undefined') {
+        initWidgets();
+        return;
+    }
+
+    var script = document.createElement('script');
+    script.src = 'https://www.virtuozzo.com/wp-content/themes/virtuozzo/widgets/vz-tco-calculator/pricings.min.js';
+
+    script.onerror = function () {
+        console.error('[vz-tco-calculator] pricings.min.js not found (404) — widget cannot initialize.');
+    };
+
+    script.onload = function () {
+        if (typeof TCOPricings === 'undefined') {
+            console.error('[vz-tco-calculator] pricings.min.js loaded but TCOPricings is not defined — check file content.');
+            return;
+        }
+        initWidgets();
+    };
+
+    document.head.appendChild(script);
+}());
