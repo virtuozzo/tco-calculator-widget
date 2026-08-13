@@ -638,7 +638,7 @@ Vz.Widgets.TCO = function (config) {
     };
 
     self.render = function () {
-        var sHtml = new EJS({ url: self.baseUrl + 'vz-tco-calculator/partial/widget' }).render({
+        var sHtml = Vz.Widgets.renderTcoTemplate({
             sBaseUrl: self.baseUrl,
             bShowForm: self.bShowForm,
             bShowBanner: self.bShowBanner,

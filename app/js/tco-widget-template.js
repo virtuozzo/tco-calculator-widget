@@ -1,4 +1,17 @@
-<form id="tco-calculator-form">
+window.Vz = window.Vz || {};
+window.Vz.Widgets = window.Vz.Widgets || {};
+
+// Renders the TCO calculator widget markup. Replaces the old EJS-templated
+// partial (app/partial/widget.ejs) which required a client-side template
+// engine and, previously, a synchronous XHR to fetch it at runtime.
+window.Vz.Widgets.renderTcoTemplate = function (data) {
+    data = data || {};
+    var bShowForm = data.bShowForm;
+    var bShowBanner = data.bShowBanner;
+    var sButtonLink = data.sButtonLink;
+    var sButtonText = data.sButtonText;
+
+    return `<form id="tco-calculator-form">
     <input type="hidden" name="calc_info">
     <div class="tco-wrapper">
         <div class="tco-form-half">
@@ -383,13 +396,13 @@
                         your specific infrastructure, requirements, and architecture, talk to our experts.
                     </p>
                     <div class="btn-wrapper">
-                        <% if(bShowForm === true || bShowForm === "true") { %>
+                        ${(bShowForm === true || bShowForm === "true") ? `
                         <a id="open-form" href="#" class="btn">TALK TO AN EXPERT</a>
-                        <% } else {%>
-                                <a href="<%= sButtonLink %>" class="btn" target="_blank" rel="noopener"><%= sButtonText %></a>
-                        <% } %>
+                        ` : `
+                                <a href="${sButtonLink}" class="btn" target="_blank" rel="noopener">${sButtonText}</a>
+                        `}
                     </div>
-                    <% if(bShowForm === true || bShowForm === "true") { %>
+                    ${(bShowForm === true || bShowForm === "true") ? `
                     <div class="tco-form-wrapper">
                         <span class="close-form">✕</span>
                         <h2>TALK TO AN EXPERT</h2>
@@ -683,21 +696,22 @@
                             <input type="submit" value="Send a Request" class="btn">
                         </div>
                     </div>
-                    <% } %>
+                    ` : ''}
                 </div>
             </div>
         </div>
     </div>
-    <% if(bShowBanner === true || bShowBanner === "true") { %>
+    ${(bShowBanner === true || bShowBanner === "true") ? `
     <div class="tco-calc-banner">
         <p>Access the full TCO source model with detailed assumptions and calculation logic.</p>
         <a href="https://www.virtuozzo.com/tco-calculator-source-model/" target="_blank" class="btn">DOWNLOAD THE SOURCE</a>
     </div>
-    <% } %>
+    ` : ''}
 </form>
 <div class="success-message">
     <h2>
         Thanks for Your Request
     </h2>
     <p>Our team will review your details and get back to you shortly.</p>
-</div>
+</div>`;
+};

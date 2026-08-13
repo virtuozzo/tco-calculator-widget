@@ -39,7 +39,7 @@ The widget is provided with multiple out-of-box arguments that allow you to cust
 
 Parameter | Description | Default
 --- | --- | ---
-`data-base-url` | Base URL used to load the EJS template (`partial/widget.ejs`). Should point to the root of the `vz-tco-calculator` folder with a trailing slash. | Current host root
+lp-[ `data-base-url` | No longer used — the widget markup is now bundled directly into `vz-tco-calculator.min.js`, so nothing is fetched at runtime. Kept for backward compatibility with existing embeds. | Current host root
 `data-button-link` | URL that the primary CTA button links to. | `https://www.virtuozzo.com/tco-calculator/`
 `data-button-text` | Label text displayed on the primary CTA button. | `TALK TO AN EXPERT`
 
@@ -117,7 +117,7 @@ In order to customize the project, you will need [Node.js](https://nodejs.org/) 
    The watcher tracks the following source files:
    - `app/scss/vz-tco-calculator.scss` — styles
    - `app/js/vz-tco-calculator.js` — widget logic
-   - `app/partial/widget.ejs` — HTML template
+   - `app/js/tco-widget-template.js` — HTML markup (plain JS template literal, no template engine)
 
 5. You can change styles in `app/scss/vz-tco-calculator.scss`. To build a production distribution without the watcher, run:
 
@@ -128,8 +128,7 @@ In order to customize the project, you will need [Node.js](https://nodejs.org/) 
    This will produce the following files in the `vz-tco-calculator/` folder:
 
    - `css/vz-tco-calculator.min.css` — minified CSS
-   - `js/vz-tco-calculator.min.js` — minified JavaScript (includes EJS, tooltip, and popover plugins)
-   - `partial/widget.ejs` — HTML template
+   - `js/vz-tco-calculator.min.js` — minified JavaScript (includes the widget markup, tooltip, and popover plugins)
    - `js/plugins/` — bundled third-party plugins
    - `img/` — static assets
 
