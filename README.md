@@ -18,7 +18,7 @@ Widget addition to your site can be accomplished in a few simple steps:
     <link rel="stylesheet" href="{siteUrl}/vz-tco-calculator/css/vz-tco-calculator.min.css">
 
     <script src="{siteUrl}/vz-tco-calculator/js/plugins/jquery-3.7.1.min.js"></script>
-    <script src="{siteUrl}/vz-tco-calculator/js/vhc-signup-widget.min.js"></script>
+    <script src="{siteUrl}/vz-tco-calculator/js/vz-tco-calculator.min.js"></script>
     ```
 
    Don't forget to correctly substitute your ***{siteUrl}*** placeholder. If jQuery is already loaded on the page, omit the jQuery `<script>` tag.
