@@ -15,7 +15,7 @@ gulp.task('sass', function(){
 
 gulp.task('js', function(){
     return gulp.src(['app/js/plugins/ejs.js', 'app/js/plugins/tooltip.js', 'app/js/plugins/popover.js', 'app/js/vz-tco-calculator.js'])
-        .pipe(concat('vhc-signup-widget.min.js'))
+        .pipe(concat('vz-tco-calculator.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest('vz-tco-calculator/js'));
 });

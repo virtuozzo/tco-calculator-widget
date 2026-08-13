@@ -63,7 +63,7 @@ However, for better performance it is recommended to include it explicitly befor
 
 ```html
 <script src="https://www.virtuozzo.com/wp-content/themes/virtuozzo/widgets/vz-tco-calculator/pricings.min.js"></script>
-<script src="{siteUrl}/vz-tco-calculator/js/vhc-signup-widget.min.js"></script>
+<script src="{siteUrl}/vz-tco-calculator/js/vz-tco-calculator.min.js"></script>
 ```
 
 When loaded this way, the widget detects the file is already available and skips the dynamic injection entirely.
@@ -78,7 +78,7 @@ You can supply your own pricing data instead of the Virtuozzo defaults. The widg
 
 ```html
 <script src="{siteUrl}/my-pricings.js"></script>
-<script src="{siteUrl}/vz-tco-calculator/js/vhc-signup-widget.min.js"></script>
+<script src="{siteUrl}/vz-tco-calculator/js/vz-tco-calculator.min.js"></script>
 ```
 
 The widget will use your prices and skip loading the default file entirely.
@@ -128,7 +128,7 @@ In order to customize the project, you will need [Node.js](https://nodejs.org/) 
    This will produce the following files in the `vz-tco-calculator/` folder:
 
    - `css/vz-tco-calculator.min.css` — minified CSS
-   - `js/vhc-signup-widget.min.js` — minified JavaScript (includes EJS, tooltip, and popover plugins)
+   - `js/vz-tco-calculator.min.js` — minified JavaScript (includes EJS, tooltip, and popover plugins)
    - `partial/widget.ejs` — HTML template
    - `js/plugins/` — bundled third-party plugins
    - `img/` — static assets
