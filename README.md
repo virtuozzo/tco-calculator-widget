@@ -26,7 +26,7 @@ Widget addition to your site can be accomplished in a few simple steps:
 3. Insert the following block at the position where the widget should be displayed:
 
     ```html
-    <div class="vz-tco-calculator" data-base-url="{siteUrl}/"></div>
+    <div class="vz-tco-calculator"/"></div>
     ```
 
 The default ready-to-work TCO calculator widget looks as follows:
@@ -39,7 +39,6 @@ The widget is provided with multiple out-of-box arguments that allow you to cust
 
 Parameter | Description | Default
 --- | --- | ---
-lp-[ `data-base-url` | No longer used — the widget markup is now bundled directly into `vz-tco-calculator.min.js`, so nothing is fetched at runtime. Kept for backward compatibility with existing embeds. | Current host root
 `data-button-link` | URL that the primary CTA button links to. | `https://www.virtuozzo.com/tco-calculator/`
 `data-button-text` | Label text displayed on the primary CTA button. | `TALK TO AN EXPERT`
 
@@ -47,7 +46,6 @@ Example with all parameters:
 
 ```html
 <div class="vz-tco-calculator"
-    data-base-url="https://example.com/"
     data-button-link="https://virtuozzo.com/contact/"
     data-button-text="Talk to Sales"
 ></div>

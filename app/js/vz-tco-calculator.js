@@ -62,7 +62,6 @@ Vz.Widgets.TCO = function (config) {
     self.element = config.oElement;
     self.$el = $(self.element);
     self.testing = !!self.element.getAttribute('data-testing');
-    self.baseUrl = self.element.getAttribute('data-base-url') || window.location.protocol + '//' + window.location.host + '/';
     self.bShowForm = self.element.getAttribute('data-form') || false;
     self.bShowBanner = self.element.getAttribute('data-banner') || false;
     self.sButtonLink = self.element.getAttribute('data-button-link') || 'https://www.virtuozzo.com/tco-calculator/';
@@ -639,7 +638,6 @@ Vz.Widgets.TCO = function (config) {
 
     self.render = function () {
         var sHtml = Vz.Widgets.renderTcoTemplate({
-            sBaseUrl: self.baseUrl,
             bShowForm: self.bShowForm,
             bShowBanner: self.bShowBanner,
             sButtonLink: self.sButtonLink,
