@@ -65,7 +65,7 @@ Vz.Widgets.TCO = function (config) {
     self.bShowForm = self.element.getAttribute('data-form') || false;
     self.bShowBanner = self.element.getAttribute('data-banner') || false;
     self.sButtonLink = self.element.getAttribute('data-button-link') || 'https://www.virtuozzo.com/tco-calculator/';
-    self.sButtonText = self.element.getAttribute('data-button-text') || 'TALK TO AN EXPERT';
+    self.sButtonText = self.element.getAttribute('data-button-text') || Vz.Widgets.tcoT('TALK TO AN EXPERT');
 
     self.customCfg   = TCOPricings.customCfg;
     self.vzModel     = TCOPricings.vzModel;
@@ -364,12 +364,12 @@ Vz.Widgets.TCO = function (config) {
         if (type === 'email') {
             if (!self.isValidEmailStrong(field.val())) {
                 isValid = false;
-                Vz.Widgets.Modal.show(field, { msg: 'The e-mail value is not valid', position: 'bottom' });
+                Vz.Widgets.Modal.show(field, { msg: Vz.Widgets.tcoT('The e-mail value is not valid'), position: 'bottom' });
                 return isValid;
             }
             if (!self.isGoodEmail(field.val())) {
                 isValid = false;
-                Vz.Widgets.Modal.show(field, { msg: 'Please enter a valid business email address', position: 'bottom' });
+                Vz.Widgets.Modal.show(field, { msg: Vz.Widgets.tcoT('Please enter a valid business email address'), position: 'bottom' });
                 return isValid;
             }
         }
@@ -377,14 +377,14 @@ Vz.Widgets.TCO = function (config) {
         if (type === 'checkbox') {
             if (field.is(':checked') === false) {
                 isValid = false;
-                Vz.Widgets.Modal.show(field.parent().find('span'), { msg: 'This field is required', position: 'bottom' });
+                Vz.Widgets.Modal.show(field.parent().find('span'), { msg: Vz.Widgets.tcoT('This field is required'), position: 'bottom' });
                 return isValid;
             }
         }
 
         if (field.val().trim().length < 2) {
             isValid = false;
-            Vz.Widgets.Modal.show(field, { msg: 'This field is required', position: 'bottom' });
+            Vz.Widgets.Modal.show(field, { msg: Vz.Widgets.tcoT('This field is required'), position: 'bottom' });
         }
 
         return isValid;
@@ -496,7 +496,7 @@ Vz.Widgets.TCO = function (config) {
                     } else {
                         $(self.element).find('[name=email]').focus();
                         Vz.Widgets.Modal.show($(self.element).find('[name=email]'), {
-                            msg: 'Please enter a valid business email address',
+                            msg: Vz.Widgets.tcoT('Please enter a valid business email address'),
                             position: 'bottom'
                         });
                     }
@@ -577,7 +577,7 @@ Vz.Widgets.TCO = function (config) {
             $(this).remove();
         });
 
-        var $msg = $('<span class="scheme-hint">Enter at least 3 nodes to view available erasure coding schemes.</span>');
+        var $msg = $('<span class="scheme-hint"></span>').html(Vz.Widgets.tcoT('Enter at least 3 nodes to view available erasure coding schemes.'));
         $select.wrap('<span class="scheme-select-wrapper"></span>');
         $select.after($msg);
 
@@ -644,6 +644,7 @@ Vz.Widgets.TCO = function (config) {
             sButtonText: self.sButtonText,
         });
         self.$el.append(sHtml);
+        self.sortCountries();
 
         self.bindElements();
         self.bindEvents();
@@ -652,6 +653,22 @@ Vz.Widgets.TCO = function (config) {
         self.showTB();
         self.calculating();
         self.$el.removeClass('loading');
+    };
+
+    // Translated page (window.VzTCOi18n present): sort countries by their translated name,
+    // keeping the placeholder, United States and Canada on top. English order stays as is.
+    self.sortCountries = function () {
+        if (!window.VzTCOi18n) return;
+        var $select = self.$el.find('#user_country');
+        if (!$select.length) return;
+        var lang = document.documentElement.lang || undefined;
+        var aOptions = $select.children('option').filter(function () {
+            return this.value && this.value !== 'United States' && this.value !== 'Canada';
+        }).get();
+        aOptions.sort(function (a, b) {
+            return a.text.localeCompare(b.text, lang);
+        });
+        $select.append(aOptions);
     };
 
     self.bindElements = function () {

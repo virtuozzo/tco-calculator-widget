@@ -51,6 +51,34 @@ Example with all parameters:
 ></div>
 ```
 
+### Localization
+
+All widget texts are in English by default. To show the widget in another language, define a global `window.VzTCOi18n` object **before the widget script**. Its keys are the original English strings and its values are the translations:
+
+```html
+<script>
+window.VzTCOi18n = {
+    "Select Your Infrastructure Setup": "Wählen Sie Ihr Infrastruktur-Setup",
+    "Lower TCO": "Niedrigere TCO",
+    "Hot Storage<br> per Node (TB)": "Hot Storage<br> pro Node (TB)",
+    "This field is required": "Pflichtfeld",
+    "Germany": "Deutschland"
+};
+</script>
+<script src="{siteUrl}/vz-tco-calculator/js/vz-tco-calculator.min.js"></script>
+```
+
+How it works:
+
+- Any string that is missing from the dictionary (or the dictionary itself) falls back to English, so a partial translation is safe.
+- Keys must match the English text exactly, including inline markup such as `<br>`, `<strong>` or links. Translations may contain the same markup.
+- The full list of keys is every `t('…')` call in `app/js/tco-widget-template.js` and every `Vz.Widgets.tcoT('…')` call in `app/js/vz-tco-calculator.js`.
+- Country names are translated in the dropdown, but the submitted `value` stays in English. When a dictionary is present, countries are sorted by their translated name (using the page `lang` attribute), with United States and Canada kept on top.
+- Erasure-coding options are translated only partially (`EC 4+2 — 67% usable` → only `usable`): the calculation reads the scheme from the option text, so `EC x+y` and `3x Replication` must stay unchanged.
+- Prices are always shown in USD with US number formatting.
+
+When adding a new text to the widget, wrap it in `t('…')` (template) or `Vz.Widgets.tcoT('…')` (JS) and add the same string to the translations on your site.
+
 ### Pricing Data
 
 The widget uses a separate pricing file (`pricings.min.js`) hosted on the Virtuozzo website. This allows pricing data to be updated centrally without requiring any changes to the widget itself.
